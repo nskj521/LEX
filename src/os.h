@@ -23,38 +23,39 @@ void osInit(void);
 void enableRawMode(void);
 void disableRawMode(void);
 
-bool readConsole(uint32_t* unicode_out, int timeout_ms);
-int writeConsole(const void* buf, size_t count);
-int getWindowSize(int* rows, int* cols);
+bool readConsole(uint32_t *unicode_out, int timeout_ms);
+int  writeConsole(const void *buf, size_t count);
+int  getWindowSize(int *rows, int *cols);
 
 // File
 typedef struct FileInfo FileInfo;
-FileInfo getFileInfo(const char* path);
-bool areFilesEqual(FileInfo f1, FileInfo f2);
+FileInfo                getFileInfo(const char *path);
+bool                    areFilesEqual(FileInfo f1, FileInfo f2);
 
-typedef enum FileType {
-    FT_INVALID = -1,
-    FT_REG,
-    FT_DIR,
-    FT_DEV,
+typedef enum FileType
+{
+  FT_INVALID = -1,
+  FT_REG,
+  FT_DIR,
+  FT_DEV,
 } FileType;
-FileType getFileType(const char* path);
+FileType getFileType(const char *path);
 
 typedef struct DirIter DirIter;
-DirIter dirFindFirst(const char* path);
-bool dirNext(DirIter* iter);
-void dirClose(DirIter* iter);
-const char* dirGetName(const DirIter* iter);
+DirIter                dirFindFirst(const char *path);
+bool                   dirNext(DirIter *iter);
+void                   dirClose(DirIter *iter);
+const char            *dirGetName(const DirIter *iter);
 
-FILE* openFile(const char* path, const char* mode);
-bool changeDir(const char* path);
-char* getFullPath(const char* path);
+FILE *openFile(const char *path, const char *mode);
+bool  changeDir(const char *path);
+char *getFullPath(const char *path);
 
 // Time
 int64_t getTime(void);
 
 // Command line
-void argsInit(int* argc, char*** argv);
-void argsFree(int argc, char** argv);
+void argsInit(int *argc, char ***argv);
+void argsFree(int argc, char **argv);
 
 #endif

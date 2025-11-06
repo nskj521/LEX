@@ -18,74 +18,78 @@
 #define ANSI_CURSOR_HIDE "\x1b[?25l"
 
 // Keys
-#define CTRL_KEY(k) ((k)&0x1F)
+#define CTRL_KEY(k) ((k) & 0x1F)
 #define ALT_KEY(k) ((k) | 0x1B00)
 
-enum EditorKey {
-    UNKNOWN = -1,
-    ESC = 27,
-    BACKSPACE = 127,
-    CHAR_INPUT = 1000,
-    PASTE_INPUT,
-    ARROW_UP,
-    ARROW_DOWN,
-    ARROW_LEFT,
-    ARROW_RIGHT,
-    DEL_KEY,
-    HOME_KEY,
-    END_KEY,
-    PAGE_UP,
-    PAGE_DOWN,
-    SHIFT_UP,
-    SHIFT_DOWN,
-    SHIFT_LEFT,
-    SHIFT_RIGHT,
-    SHIFT_HOME,
-    SHIFT_END,
-    SHIFT_PAGE_UP,
-    SHIFT_PAGE_DOWN,
-    ALT_UP,
-    ALT_DOWN,
-    SHIFT_ALT_UP,
-    SHIFT_ALT_DOWN,
-    CTRL_UP,
-    CTRL_DOWN,
-    CTRL_LEFT,
-    CTRL_RIGHT,
-    CTRL_HOME,
-    CTRL_END,
-    CTRL_PAGE_UP,
-    CTRL_PAGE_DOWN,
-    SHIFT_CTRL_UP,
-    SHIFT_CTRL_DOWN,
-    SHIFT_CTRL_LEFT,
-    SHIFT_CTRL_RIGHT,
-    SHIFT_CTRL_PAGE_UP,
-    SHIFT_CTRL_PAGE_DOWN,
-    MOUSE_PRESSED,
-    MOUSE_RELEASED,
-    SCROLL_PRESSED,
-    SCROLL_RELEASED,
-    MOUSE_MOVE,
-    WHEEL_UP,
-    WHEEL_DOWN,
+enum EditorKey
+{
+  UNKNOWN    = -1,
+  ESC        = 27,
+  BACKSPACE  = 127,
+  CHAR_INPUT = 1000,
+  PASTE_INPUT,
+  ARROW_UP,
+  ARROW_DOWN,
+  ARROW_LEFT,
+  ARROW_RIGHT,
+  DEL_KEY,
+  HOME_KEY,
+  END_KEY,
+  PAGE_UP,
+  PAGE_DOWN,
+  SHIFT_UP,
+  SHIFT_DOWN,
+  SHIFT_LEFT,
+  SHIFT_RIGHT,
+  SHIFT_HOME,
+  SHIFT_END,
+  SHIFT_PAGE_UP,
+  SHIFT_PAGE_DOWN,
+  ALT_UP,
+  ALT_DOWN,
+  SHIFT_ALT_UP,
+  SHIFT_ALT_DOWN,
+  CTRL_UP,
+  CTRL_DOWN,
+  CTRL_LEFT,
+  CTRL_RIGHT,
+  CTRL_HOME,
+  CTRL_END,
+  CTRL_PAGE_UP,
+  CTRL_PAGE_DOWN,
+  SHIFT_CTRL_UP,
+  SHIFT_CTRL_DOWN,
+  SHIFT_CTRL_LEFT,
+  SHIFT_CTRL_RIGHT,
+  SHIFT_CTRL_PAGE_UP,
+  SHIFT_CTRL_PAGE_DOWN,
+  MOUSE_PRESSED,
+  MOUSE_RELEASED,
+  SCROLL_PRESSED,
+  SCROLL_RELEASED,
+  MOUSE_MOVE,
+  WHEEL_UP,
+  WHEEL_DOWN,
 };
 
-typedef struct EditorInput {
-    int type;
-    union {
-        uint32_t unicode;
-        struct {
-            int x;
-            int y;
-        } cursor;
-        EditorClipboard paste;
-    } data;
+typedef struct EditorInput
+{
+  int type;
+  union
+  {
+    uint32_t unicode;
+    struct
+    {
+      int x;
+      int y;
+    } cursor;
+    EditorClipboard paste;
+  } data;
 } EditorInput;
 
-void editorInitTerminal(void);
+void        editorInitTerminal(void);
 EditorInput editorReadKey(void);
-void editorFreeInput(EditorInput* input);
+void        editorFreeInput(EditorInput *input);
 
 void enableMouse(void);
 void disableMouse(void);

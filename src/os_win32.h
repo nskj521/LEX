@@ -13,17 +13,19 @@
 
 #include <io.h>
 
-struct FileInfo {
-    BY_HANDLE_FILE_INFORMATION info;
+struct FileInfo
+{
+  BY_HANDLE_FILE_INFORMATION info;
 
-    bool error;
+  bool error;
 };
 
-struct DirIter {
-    HANDLE handle;
-    WIN32_FIND_DATAW find_data;
+struct DirIter
+{
+  HANDLE           handle;
+  WIN32_FIND_DATAW find_data;
 
-    bool error;
+  bool error;
 };
 
 #endif

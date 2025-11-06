@@ -18,17 +18,19 @@
 #define EDITOR_PATH_MAX 4096
 #endif
 
-struct FileInfo {
-    struct stat info;
+struct FileInfo
+{
+  struct stat info;
 
-    bool error;
+  bool error;
 };
 
-struct DirIter {
-    DIR* dp;
-    struct dirent* entry;
+struct DirIter
+{
+  DIR           *dp;
+  struct dirent *entry;
 
-    bool error;
+  bool error;
 };
 
 #endif
