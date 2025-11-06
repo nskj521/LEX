@@ -43,9 +43,9 @@ sudo cmake --install .
 ```
 
 ### Uninstallation
-
-# To remove lex from your system, the build process automatically generates a convenient uninstall script for you.
-
+```
+To remove lex from your system, the build process automatically generates a convenient uninstall script for you.
+```
 # 1. Navigate to the build directory
 cd build
 
