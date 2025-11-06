@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-
 project(lex VERSION 0.5.2 LANGUAGES C)
-
 include(GNUInstallDirs)
-
 set(CMAKE_C_STANDARD 11)
 
 set(RESOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/resources")
@@ -11,18 +8,24 @@ set(RESOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/resources")
 set (SYNTAX_FILES
     ${RESOURCE_DIR}/syntax/c.json
     ${RESOURCE_DIR}/syntax/cpp.json
+    ${RESOURCE_DIR}/syntax/go.json
+    ${RESOURCE_DIR}/syntax/html.json
     ${RESOURCE_DIR}/syntax/java.json
+    ${RESOURCE_DIR}/syntax/javascript.json
     ${RESOURCE_DIR}/syntax/json.json
     ${RESOURCE_DIR}/syntax/make.json
+    ${RESOURCE_DIR}/syntax/php.json
     ${RESOURCE_DIR}/syntax/python.json
+    ${RESOURCE_DIR}/syntax/ruby.json
     ${RESOURCE_DIR}/syntax/rust.json
+    ${RESOURCE_DIR}/syntax/shell.json
+    ${RESOURCE_DIR}/syntax/sql.json
+    ${RESOURCE_DIR}/syntax/typescript.json
     ${RESOURCE_DIR}/syntax/zig.json
 )
 
 set (BUNDLER_SOURCE "${RESOURCE_DIR}/bundler.c")
-
 add_executable(bundler ${BUNDLER_SOURCE})
-
 set (BUNDLER_BIN $<TARGET_FILE:bundler>)
 set (BUNDLED_FILE "${RESOURCE_DIR}/bundle.h")
 
@@ -96,7 +99,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 )
 
 set(COMMON_HEADER "${CMAKE_SOURCE_DIR}/src/common.h")
-
 if (MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE /W4 /wd4244 /wd4267 /wd4996 /FI "${COMMON_HEADER}")
 else()
@@ -108,7 +110,6 @@ install(TARGETS ${PROJECT_NAME})
 # ==============================================================================
 # Section to Create Automatic Uninstall Script
 # ==============================================================================
-
 # Define the uninstall script filename
 set(UNINSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/uninstall.sh")
 
@@ -126,6 +127,7 @@ fi
 
 echo \"Removing installed files...\"
 xargs rm -vf < install_manifest.txt
+
 echo \"Uninstall complete.\"
 "
 )
