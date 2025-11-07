@@ -46,7 +46,7 @@ Follow these steps to build and install Lex on your system:
 **Quick Installation (One-liner):**
 
 ```bash
-git clone https://github.com/danko1122q/lex.git && cd lex && mkdir build && cd build && cmake .. && make -j$(nproc) && sudo make install
+git clone https://github.com/danko1122q/lex.git && cd lex && mkdir build && cd build && cmake .. && make -j$(nproc) && sudo make install .
 ```
 
 ---
