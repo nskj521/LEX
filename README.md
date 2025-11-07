@@ -4,6 +4,13 @@ Lex is a **lightweight, simple, and terminal-based text editor**, inspired by GN
 
 ---
 
+
+
+![Lex](docs/images/lex.png)
+
+
+
+---
 ## ✨ Features
 
 * 🧩 **Familiar Interface** — Simple and minimal layout inspired by Nano
