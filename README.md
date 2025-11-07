@@ -64,7 +64,7 @@ The `uninstall` target is created using CMake. This is the recommended method to
 
 ```bash
 cd /path/to/LEX/build
-sudo make uninstall
+sudo make uninstall .
 ```
 
 **Note:** The uninstall process reads from `install_manifest.txt` which is automatically generated during the CMake configuration step. Make sure this file exists before running the uninstall command.
