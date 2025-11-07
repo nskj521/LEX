@@ -179,7 +179,7 @@ Commercial redistribution or resale is not allowed without written permission fr
 
 ## 🙏 Acknowledgments
 
-- **GNU Nano** — for inspiring the simplicity and interface design
+- **GNU Nano & nino** — for inspiring the simplicity and interface design
 - **Open Source Community** — for tools, libraries, and continuous support
 - **Contributors** — who help improve and maintain the project
 
