@@ -18,8 +18,8 @@ color status.lang.fg ffffff
 color status.lang.bg 00aaaa
 color status.pos.fg ffffff
 color status.pos.bg 00aaaa
-color lineno.fg aaaaaa
-color lineno.bg 0000aa
+color lilex.fg aaaaaa
+color lilex.bg 0000aa
 color cursorline 000001
 color hl.normal ffffff
 color hl.comment 00aa00

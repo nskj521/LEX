@@ -30,7 +30,7 @@ The command will first search for the file in the current directory, then the co
 | `osc52_copy` | 1 | Copy to system clipboard using OSC52. |
 | `newline_default` | 0 | Set the default EOL sequence (LF/CRLF). 0 is OS default. |
 | `ttimeoutlen` | 50 | Time in milliseconds to wait for a key code sequence to complete. |
-| `lineno` | 1 | Show line numbers. |
+| `lilex` | 1 | Show line numbers. |
 | `color` | cmd | Change the color of an element. |
 | `exec` | cmd | Execute a config file. |
 | `lang` | cmd | Set the syntax highlighting language of the current file. |
@@ -74,8 +74,8 @@ When color code is `000000` it will be transparent.
 | `status.lang.bg` | `a96b21` |
 | `status.pos.fg` | `e1dbef` |
 | `status.pos.bg` | `d98a2b` |
-| `lineno.fg` | `7f7f7f` |
-| `lineno.bg` | `1e1e1e` |
+| `lilex.fg` | `7f7f7f` |
+| `lilex.bg` | `1e1e1e` |
 | `cursorline` | `282828` |
 | `hl.normal` | `e5e5e5` |
 | `hl.comment` | `6a9955` |

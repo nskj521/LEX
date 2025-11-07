@@ -100,7 +100,7 @@ Example commands:
 
 ```bash
 set tabsize 4
-set lineno 1
+set lilex 1
 set helpinfo 0
 ```
 

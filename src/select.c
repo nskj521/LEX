@@ -71,7 +71,7 @@ void editorDeleteText(EditorSelectRange range)
     gCurFile->num_rows -= removed_rows;
     gCurFile->cursor.y -= removed_rows;
 
-    gCurFile->lineno_width = getDigit(gCurFile->num_rows) + 2;
+    gCurFile->lilex_width = getDigit(gCurFile->num_rows) + 2;
   }
   while (gCurFile->cursor.y != range.start_y || gCurFile->cursor.x != range.start_x)
   {

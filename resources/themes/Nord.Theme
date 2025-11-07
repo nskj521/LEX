@@ -18,8 +18,8 @@ color status.lang.fg 2e3440
 color status.lang.bg 88c0d0
 color status.pos.fg 2e3440
 color status.pos.bg a3be8c
-color lineno.fg 4c566a
-color lineno.bg 2e3440
+color lilex.fg 4c566a
+color lilex.bg 2e3440
 color cursorline 3b4252
 color hl.normal eceff4
 color hl.comment 616e88

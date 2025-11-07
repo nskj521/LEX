@@ -195,7 +195,7 @@ bool editorOpen(EditorFile *file, const char *path)
     at++;
   }
 
-  file->lineno_width = getDigit(file->num_rows) + 2;
+  file->lilex_width = getDigit(file->num_rows) + 2;
 
   if (has_end_nl)
   {

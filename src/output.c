@@ -312,7 +312,7 @@ static void editorDrawRows(abuf *ab)
     gEditor.color_cfg.highlightBg[HL_BG_NORMAL] = gEditor.color_cfg.bg;
     if (i < gCurFile->num_rows)
     {
-      if (CONVAR_GETINT(lineno))
+      if (CONVAR_GETINT(lilex))
       {
         char line_number[16];
         if (i == gCurFile->cursor.y)
@@ -330,7 +330,7 @@ static void editorDrawRows(abuf *ab)
           setColor(ab, gEditor.color_cfg.line_number[1], 1);
         }
 
-        len = snprintf(line_number, sizeof(line_number), " %*d ", gCurFile->lineno_width - 2,
+        len = snprintf(line_number, sizeof(line_number), " %*d ", gCurFile->lilex_width - 2,
                        i + 1);  // <-- Sudah benar
 
         abufAppendN(ab, line_number, len);
@@ -339,7 +339,7 @@ static void editorDrawRows(abuf *ab)
       abufAppendStr(ab, ANSI_CLEAR);
       setColor(ab, gEditor.color_cfg.bg, 1);
 
-      int cols       = gEditor.screen_cols - gEditor.explorer.width - LINENO_WIDTH();
+      int cols       = gEditor.screen_cols - gEditor.explorer.width - LILEX_WIDTH();
       int col_offset = editorRowRxToCx(&gCurFile->row[i], gCurFile->col_offset);
       len            = gCurFile->row[i].size - col_offset;
       len            = (len < 0) ? 0 : len;
@@ -555,7 +555,7 @@ void editorRefreshScreen(void)
     int row = (gCurFile->cursor.y - gCurFile->row_offset) + 2;
     int col = (editorRowCxToRx(&gCurFile->row[gCurFile->cursor.y], gCurFile->cursor.x) -
                gCurFile->col_offset) +
-              1 + LINENO_WIDTH();
+              1 + LILEX_WIDTH();
     if (row <= 1 || row > gEditor.screen_rows - 1 || col <= 0 ||
         col > gEditor.screen_cols - gEditor.explorer.width ||
         row >= gEditor.screen_rows - gEditor.con_size)

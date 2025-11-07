@@ -47,7 +47,7 @@ typedef struct EditorFile
 
   // Total line number
   int num_rows;
-  int lineno_width;
+  int lilex_width;
 
   // Encoding
   uint8_t newline;

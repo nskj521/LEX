@@ -240,7 +240,7 @@ static bool editorExplorerProcessKeypress(EditorInput input)
 
 void editorScrollToCursor(void)
 {
-  int cols = gEditor.screen_cols - gEditor.explorer.width - LINENO_WIDTH();
+  int cols = gEditor.screen_cols - gEditor.explorer.width - LILEX_WIDTH();
   int rx   = 0;
   if (gCurFile->cursor.y < gCurFile->num_rows)
   {
@@ -288,8 +288,8 @@ int getMousePosField(int x, int y)
     return FIELD_EXPLORER;
   if (gEditor.file_count == 0)
     return FIELD_EMPTY;
-  if (x < gEditor.explorer.width + LINENO_WIDTH())
-    return FIELD_LINENO;
+  if (x < gEditor.explorer.width + LILEX_WIDTH())
+    return FIELD_LILEX;
   return FIELD_TEXT;
 }
 
@@ -309,7 +309,7 @@ void mousePosToEditorPos(int *x, int *y)
     return;
   }
 
-  int col = *x - gEditor.explorer.width - LINENO_WIDTH() + gCurFile->col_offset;
+  int col = *x - gEditor.explorer.width - LILEX_WIDTH() + gCurFile->col_offset;
   if (col < 0)
   {
     col = 0;
@@ -1486,7 +1486,7 @@ void editorProcessKeypress(void)
           editorExplorerProcessKeypress(input);
           break;
 
-        case FIELD_LINENO:
+        case FIELD_LILEX:
         {
           should_scroll = false;
           mouse_click   = 0;
@@ -1495,7 +1495,7 @@ void editorProcessKeypress(void)
             row = 0;
           if (row >= gCurFile->num_rows)
             row = gCurFile->num_rows - 1;
-          mouse_pressed = FIELD_LINENO;
+          mouse_pressed = FIELD_LILEX;
           pressed_row   = row;
           editorSelectLine(row);
         }
@@ -1528,7 +1528,7 @@ void editorProcessKeypress(void)
       {
         editorMoveMouse(curr_x, curr_y);
       }
-      else if (mouse_pressed == FIELD_LINENO)
+      else if (mouse_pressed == FIELD_LILEX)
       {
         int col = 0;
         int row = curr_y;
@@ -1542,7 +1542,7 @@ void editorProcessKeypress(void)
     {
       int field     = getMousePosField(x, y);
       should_scroll = false;
-      if (field != FIELD_TEXT && field != FIELD_LINENO)
+      if (field != FIELD_TEXT && field != FIELD_LILEX)
       {
         if (field == FIELD_TOP_STATUS)
         {
@@ -1564,7 +1564,7 @@ void editorProcessKeypress(void)
       {
         editorMoveMouse(curr_x, curr_y);
       }
-      else if (mouse_pressed == FIELD_LINENO)
+      else if (mouse_pressed == FIELD_LILEX)
       {
         int col = 0;
         int row = curr_y;
@@ -1578,7 +1578,7 @@ void editorProcessKeypress(void)
     {
       int field     = getMousePosField(x, y);
       should_scroll = false;
-      if (field != FIELD_TEXT && field != FIELD_LINENO)
+      if (field != FIELD_TEXT && field != FIELD_LILEX)
       {
         if (field == FIELD_TOP_STATUS)
         {
@@ -1599,7 +1599,7 @@ void editorProcessKeypress(void)
       {
         editorMoveMouse(curr_x, curr_y);
       }
-      else if (mouse_pressed == FIELD_LINENO)
+      else if (mouse_pressed == FIELD_LILEX)
       {
         int col = 0;
         int row = curr_y;

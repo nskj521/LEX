@@ -18,8 +18,8 @@ color status.lang.fg 282c34
 color status.lang.bg e5c07b
 color status.pos.fg 282c34
 color status.pos.bg 98c379
-color lineno.fg 4b5263
-color lineno.bg 282c34
+color lilex.fg 4b5263
+color lilex.bg 282c34
 color cursorline 2c323c
 color hl.normal abb2bf
 color hl.comment 5c6370

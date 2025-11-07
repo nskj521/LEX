@@ -117,7 +117,7 @@ Common theme properties you can customize:
 * `color explorer.*` - File explorer colors
 * `color prompt.*` - Prompt/command line colors
 * `color status.*` - Status bar colors
-* `color lineno.*` - Line number colors
+* `color lilex.*` - Line number colors
 * `color hl.*` - Syntax highlighting colors
 
 ## Configuration Directory
