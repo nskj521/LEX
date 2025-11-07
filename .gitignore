@@ -14,6 +14,16 @@ dist/          # Distribusi hasil build
 *.tar.gz
 *.zip
 
+
+# Executable/output dari project Lex - NAMA EXECUTABLE: lex
+lex
+scanner
+parser
+compiler
+a.out
+lex.exe       
+lex.debug     
+
 # Compiled objects, libraries, and executables
 *.o
 *.so
