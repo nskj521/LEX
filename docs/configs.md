@@ -88,6 +88,3 @@ When color code is `000000` it will be transparent.
 | `hl.match` | `592e14` |
 | `hl.select` | `264f78` |
 | `hl.trailing` | `ff6464` |
-
-## Example
-An [example](example.themerc) of `ninorc`.
