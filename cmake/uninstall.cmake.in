@@ -1,19 +1,15 @@
-# Robust CMake Uninstall Script
-# This file is generated from uninstall.cmake.in
-
-# Ensure manifest file exists
+# Uninstall Script
 if(NOT EXISTS "@CMAKE_INSTALL_MANIFEST_FILE@")
     message(WARNING "Cannot find install manifest: @CMAKE_INSTALL_MANIFEST_FILE@")
-    message(STATUS "Attempting to remove binary from known install locations...")
-    
-    # List all possible locations
+    message(STATUS "Attempting to remove binary from known locations...")
+
     set(POSSIBLE_LOCATIONS
         "@CMAKE_INSTALL_FULL_BINDIR@/@PROJECT_NAME@"
         "/usr/local/bin/@PROJECT_NAME@"
         "/usr/bin/@PROJECT_NAME@"
         "${CMAKE_INSTALL_PREFIX}/bin/@PROJECT_NAME@"
     )
-    
+
     set(FOUND_ANY FALSE)
     foreach(location ${POSSIBLE_LOCATIONS})
         if(EXISTS "${location}")
@@ -30,17 +26,14 @@ if(NOT EXISTS "@CMAKE_INSTALL_MANIFEST_FILE@")
             endif()
         endif()
     endforeach()
-    
+
     if(NOT FOUND_ANY)
-        message(STATUS "No installed files found in common locations.")
-        message(STATUS "If the binary still exists elsewhere, try:")
-        message(STATUS "  sudo make force-uninstall")
+        message(STATUS "No installed files found. Try 'sudo make force-uninstall' if binary remains.")
     endif()
-    
     return()
 endif()
 
-# Read manifest file and remove each installed file
+# Read manifest and remove files
 file(READ "@CMAKE_INSTALL_MANIFEST_FILE@" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
@@ -50,22 +43,18 @@ set(MISSING_COUNT 0)
 
 foreach(file ${files})
     message(STATUS "Uninstalling: ${file}")
-    
     if(NOT EXISTS "${file}")
         message(STATUS "  - File not found (already removed?)")
         math(EXPR MISSING_COUNT "${MISSING_COUNT} + 1")
         continue()
     endif()
-    
-    # Try to remove file
+
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E remove "${file}"
         RESULT_VARIABLE result
-        OUTPUT_QUIET
-        ERROR_QUIET
+        OUTPUT_QUIET ERROR_QUIET
     )
-    
-    # Verify if file was actually removed
+
     if(EXISTS "${file}")
         message(WARNING "  ✗ Failed to remove (may need sudo)")
         math(EXPR FAILURE_COUNT "${FAILURE_COUNT} + 1")
@@ -75,7 +64,6 @@ foreach(file ${files})
     endif()
 endforeach()
 
-# Results report
 message(STATUS "")
 message(STATUS "=== Uninstall Summary ===")
 message(STATUS "Successfully removed: ${SUCCESS_COUNT} file(s)")
@@ -84,12 +72,11 @@ if(MISSING_COUNT GREATER 0)
 endif()
 if(FAILURE_COUNT GREATER 0)
     message(WARNING "Failed to remove: ${FAILURE_COUNT} file(s)")
-    message(WARNING "You may need to run with sudo:")
-    message(WARNING "  sudo make uninstall")
+    message(WARNING "You may need to run with sudo: sudo make uninstall")
 endif()
 message(STATUS "========================")
 
-# Also try to remove binary from common locations (backup)
+# Backup locations
 message(STATUS "")
 message(STATUS "Double-checking common install locations...")
 set(BACKUP_LOCATIONS
@@ -103,8 +90,7 @@ foreach(location ${BACKUP_LOCATIONS})
         execute_process(
             COMMAND ${CMAKE_COMMAND} -E remove "${location}"
             RESULT_VARIABLE result
-            OUTPUT_QUIET
-            ERROR_QUIET
+            OUTPUT_QUIET ERROR_QUIET
         )
         if(NOT EXISTS "${location}")
             message(STATUS "  ✓ Removed successfully")

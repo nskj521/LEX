@@ -1,245 +1,188 @@
-# Panduan Install & Uninstall LEX Editor
+# LEX Editor Installation & Uninstallation Guide
 
-## 🔧 Persiapan
+## 🔧 Prerequisites
 
-Pastikan file `cmake/uninstall.cmake.in` sudah ada di folder project Anda.
+Ensure the project includes `cmake/uninstall.cmake.in` and that you have `CMake >= 3.15` installed.
 
 ## 📦 Build & Install
 
 ```bash
-# 1. Buat direktori build
+# 1. Create build directory
 mkdir -p build
 cd build
 
-# 2. Generate build files dengan CMake
+# 2. Generate build files with CMake
 cmake ..
 
-# 3. Compile project
-make -j$(nproc) 
+# 3. Compile the project
+make -j$(nproc)
 
-# 4. Install ke sistem (memerlukan sudo)
+# 4. Install to system (requires sudo)
 sudo make install
 ```
 
-Binary akan terinstall di `/usr/local/bin/lex` secara default.
+> Default install location: `/usr/local/bin/lex`
 
-## 🔍 Cek Instalasi
-
-Untuk mengecek dimana binary terinstall:
+## 🔍 Check Installation
 
 ```bash
-# cek binary lex
+# Check lex binary location
 which lex
-```
 
-
-
-# Cek lokasi spesifik
+# Check specific locations
 ls -lh /usr/local/bin/lex
 ls -lh /usr/bin/lex
 ```
 
-## 🗑️ Uninstall (3 Metode)
+## 🗑️ Uninstall (3 Methods)
 
-### Metode 1: Uninstall Normal (Recommended)
+### Method 1: Normal Uninstall (Recommended)
 
-Menggunakan file `install_manifest.txt` yang dibuat saat install:
+Uses the `install_manifest.txt` created during installation:
 
 ```bash
 cd build
 sudo make uninstall
 ```
 
-**Catatan:** Metode ini hanya bekerja jika:
-- Anda masih punya folder `build/` 
-- File `install_manifest.txt` masih ada
-- Anda belum menghapus folder build
+> Works only if `build/` exists and `install_manifest.txt` is present.
 
-### Metode 2: Force Uninstall
+### Method 2: Force Uninstall
 
-Jika `install_manifest.txt` hilang atau metode 1 gagal:
+If method 1 fails:
 
 ```bash
 cd build
 sudo make force-uninstall
 ```
 
-Metode ini akan mencoba menghapus binary dari semua lokasi umum:
-- `/usr/local/bin/lex`
-- `/usr/bin/lex`
-- `${CMAKE_INSTALL_PREFIX}/bin/lex`
+Removes binary from:
 
-### Metode 3: Manual Uninstall
+* `/usr/local/bin/lex`
+* `/usr/bin/lex`
+* `${CMAKE_INSTALL_PREFIX}/bin/lex`
 
-Jika kedua metode di atas gagal:
+### Method 3: Manual Uninstall
 
 ```bash
-# Hapus secara manual
 sudo rm -f /usr/local/bin/lex
 sudo rm -f /usr/bin/lex
-
-# Verifikasi sudah terhapus
-which lex
-# Output: (tidak ada output jika berhasil)
+which lex # Should show nothing
 ```
 
-## 🧹 Purge (Uninstall + Hapus Build)
-
-Untuk uninstall dan sekaligus menghapus folder build:
+## 🧹 Purge (Uninstall + Delete Build)
 
 ```bash
-cd build
-sudo make purge
+# Run from project root for safety
+make -C build purge
 ```
 
-**Peringatan:** Perintah ini akan:
-1. Menjalankan uninstall
-2. Menghapus seluruh folder `build/`
+> This runs uninstall first, then deletes the `build/` folder.
 
-## 📍 Mengubah Lokasi Install
-
-Jika ingin install ke lokasi berbeda (contoh: `/usr/bin`):
+## 📍 Change Installation Location
 
 ```bash
-# Saat generate CMake
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-
-# Install
 sudo make install
-
-# Binary akan ada di: /usr/bin/lex
+# Binary will be at: /usr/bin/lex
 ```
 
 ## ❓ Troubleshooting
 
-### Problem: "Binary masih ada setelah uninstall"
-
-**Solusi:**
+### Binary still exists
 
 ```bash
-# 1. Cari semua instance lex
 sudo find / -name "lex" -type f 2>/dev/null
-
-# 2. Cek lokasi mana yang executable
 which lex
-
-# 3. Hapus manual
 sudo rm -f /path/to/lex
 ```
 
-### Problem: "Permission denied saat uninstall"
-
-**Solusi:** Pastikan menggunakan `sudo`
+### Permission denied
 
 ```bash
 sudo make uninstall
-# atau
+# or
 sudo make force-uninstall
 ```
 
-### Problem: "install_manifest.txt tidak ditemukan"
-
-**Solusi:** Gunakan force-uninstall
+### install_manifest.txt missing
 
 ```bash
 cd build
 sudo make force-uninstall
 ```
 
-### Problem: "Conflict dengan program 'lex' yang sudah ada"
+### Conflict with system 'lex'
 
-Sistem Unix/Linux biasanya sudah memiliki program `lex` (flex lexical analyzer).
+* Rename binary in `CMakeLists.txt`:
 
-**Solusi 1:** Rename binary Anda
-
-Edit `CMakeLists.txt`:
 ```cmake
-project(mylex VERSION 0.5.2 LANGUAGES C)  # Ganti dari 'lex' ke 'mylex'
+project(mylex VERSION 0.5.2 LANGUAGES C)
 ```
 
-**Solusi 2:** Install ke lokasi lokal
+* Or install locally:
 
 ```bash
 cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
 make
 make install
-
-# Binary akan ada di: ~/.local/bin/mylex
-# Tambahkan ke PATH jika perlu
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-## 📝 Workflow Lengkap
+## 📝 Complete Workflow
 
 ```bash
-# Build pertama kali
+# Build & Install
 mkdir build && cd build
 cmake ..
 make
 sudo make install
 
-# Cek instalasi
+# Check installation
 make check-install
 which lex
-
-# Test program
 lex --version
 lex myfile.txt
 
 # Uninstall
 sudo make uninstall
-
-# Atau force uninstall jika perlu
+# Or force uninstall
 sudo make force-uninstall
 
-# Rebuild setelah perubahan kode
+# Rebuild after code changes
 cd build
 make
 sudo make install
 
-# Clean total (uninstall + hapus build)
+# Full clean
 sudo make purge
 ```
 
-## ✅ Verifikasi Uninstall Berhasil
-
-Setelah uninstall, pastikan binary benar-benar terhapus:
+## ✅ Verify Successful Uninstall
 
 ```bash
-# Test 1: which seharusnya tidak menemukan
-which lex
-# Output: (kosong atau "lex not found")
-
-# Test 2: Coba jalankan
-lex
-# Output: "bash: lex: command not found"
-
-# Test 3: Cek manual di lokasi install
-ls /usr/local/bin/lex
-# Output: "No such file or directory"
+which lex       # Should show nothing
+lex             # bash: lex: command not found
+ls /usr/local/bin/lex  # No such file or directory
 ```
 
-## 🎯 Target CMake yang Tersedia
+## 🎯 Available CMake Targets
 
-| Target | Perintah | Deskripsi |
-|--------|----------|-----------|
-| Build | `make` | Compile project |
-| Install | `sudo make install` | Install binary ke sistem |
-| Check | `make check-install` | Cek lokasi instalasi |
-| Uninstall | `sudo make uninstall` | Hapus instalasi (butuh manifest) |
-| Force Uninstall | `sudo make force-uninstall` | Paksa hapus dari lokasi umum |
-| Purge | `sudo make purge` | Uninstall + hapus build directory |
+| Target          | Command                     | Description                                |
+| --------------- | --------------------------- | ------------------------------------------ |
+| Build           | `make`                      | Compile the project                        |
+| Install         | `sudo make install`         | Install binary to system                   |
+| Check           | `make check-install`        | Verify installation                        |
+| Uninstall       | `sudo make uninstall`       | Remove installed files (requires manifest) |
+| Force Uninstall | `sudo make force-uninstall` | Force remove binary                        |
+| Purge           | `sudo make purge`           | Uninstall + delete build folder            |
 
-## 🔐 Catatan Keamanan
+## 🔐 Security Notes
 
-- Selalu gunakan `sudo` untuk install/uninstall ke `/usr/local/bin` atau `/usr/bin`
-- Untuk instalasi tanpa sudo, gunakan prefix lokal:
-  ```bash
-  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-  ```
-- Verifikasi binary sebelum install:
-  ```bash
-  # Cek binary yang akan diinstall
-  file ./lex
-  ./lex --version
-  ```
+* Use `sudo` when installing/uninstalling to system paths.
+* Local installation without sudo:
+
+```bash
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+make
+```
